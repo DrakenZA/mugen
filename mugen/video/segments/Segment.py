@@ -127,13 +127,23 @@ class Segment(Filterable, Persistable, ABC):
         segment = self.copy()
         dimensions = Dimensions(*dimensions)
 
-        if segment.aspect_ratio != dimensions.aspect_ratio:
+        #if segment.aspect_ratio != dimensions.aspect_ratio:
             # Crop segment to match aspect ratio
-            segment = segment.crop_to_aspect_ratio(dimensions.aspect_ratio)
+            #segment = segment.crop_to_aspect_ratio(dimensions.aspect_ratio)
 
-        if segment.dimensions != dimensions:
+        #if segment.dimensions != dimensions:
             # Resize segment to reach final dimensions
-            segment = segment.resize(dimensions)
+            #segment = segment.resize(dimensions)
+            
+        if segment.size[1] > dimensions.height:
+          segment = segment.resize(height=dimensions.height)
+          #print("heightchange: "+str(segment.size))
+          
+        if segment.size[0] > dimensions.width:
+          segment = segment.resize(width=dimensions.width)
+          #print("widthchange: "+str(segment.size))        
+        
+        segment = segment.set_position("center")
 
         return segment
 
