@@ -167,8 +167,9 @@ class MusicVideo(Persistable):
                         segment = segment.set_audio(segment.audio.audio_fadein(effect.duration))
 
             composite_video_segments.append(segment)
-
-        music_video = CompositeVideoClip(composite_video_segments)
+        
+        #music_video = CompositeVideoClip(composite_video_segments)
+        music_video = CompositeVideoClip(composite_video_segments,size=(self.dimensions[0],self.dimensions[1]))
 
         if self.audio_file:
             music_video.audio = AudioFileClip(self.audio_file)
