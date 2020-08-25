@@ -162,7 +162,7 @@ class Segment(Filterable, Persistable, ABC):
           #background1 = background1.resize(1.3)
           #background2 = background2.resize(1.3)
           background1 = background1.resize(width=(dimensions.width-segment.w)/2)
-          background2 = background2.resize(width=(dimensions.width-segment.w)/2)
+          background2 = background2.resize(width=((dimensions.width-segment.w)/2)+1)
 
 
           background1 = background1.set_position(("left",'center')).fl_image( blur )
