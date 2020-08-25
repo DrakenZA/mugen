@@ -132,8 +132,8 @@ class Segment(Filterable, Persistable, ABC):
         segment_old = segment
         
         def blur(image):
-            return cv2.GaussianBlur(image.astype(float),(99,99),0)
-            #return cv2.blur(image.astype(float), (45, 45) , 0)
+            #return cv2.GaussianBlur(image.astype(float),(99,99),0)
+            return cv2.blur(image.astype(float), (30, 30) , 0)
         
 
           
