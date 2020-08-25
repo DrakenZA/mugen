@@ -129,20 +129,12 @@ class Segment(Filterable, Persistable, ABC):
         dimensions = Dimensions(*dimensions)
         aspect_check = segment.aspect_ratio
 
-
+        segment_old = segment
+        
         def blur(image):
             return cv2.blur(image.astype(float), (45, 45) , 0)
         
-        if aspect_check < 1.77:
-          background1 = segment.crop(x1=0,width = (segment.w/2))
-          background2 = segment.crop(x1=(segment.w/2),width = (segment.w/2))
 
-          background1 = background1.resize(1.3)
-          background2 = background2.resize(1.3)
-
-
-          background1 = background1.set_position(("left",'center')).fl_image( blur )
-          background2 = background2.set_position(("right",'center')).fl_image( blur )
           
 
         #if segment.aspect_ratio != dimensions.aspect_ratio:
@@ -163,9 +155,24 @@ class Segment(Filterable, Persistable, ABC):
         
         segment = segment.set_position("center")
         
+        if aspect_check < 1.77:
+          background1 = segment_old.crop(x1=0,width = (segment_old.w/2))
+          background2 = segment_old.crop(x1=(segment_old.w/2),width = (segment_old.w/2))
+
+          #background1 = background1.resize(1.3)
+          #background2 = background2.resize(1.3)
+          background1 = background1.resize(width=(dimensions.width-segment.w)/2)
+          background2 = background2.resize(width=(dimensions.width-segment.w)/2)
+
+
+          background1 = background1.set_position(("left",'center')).fl_image( blur )
+          background2 = background2.set_position(("right",'center')).fl_image( blur )
+            
+            
+        
         if aspect_check > 1.77:
-          background1 = segment.crop(y1=0,height = (segment.h/2))
-          background2 = segment.crop(y1=(segment.h/2),height = (segment.h/2)) 
+          background1 = segment_old.crop(y1=0,height = (segment_old.h/2))
+          background2 = segment_old.crop(y1=(segment_old.h/2),height = (segment_old.h/2)) 
 
           background1 = background1.set_position(('center','top')).fl_image( blur )
           background2 = background2.set_position(('center','bottom')).fl_image( blur )      
