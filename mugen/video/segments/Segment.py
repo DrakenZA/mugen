@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import List, Tuple
 import copy
 
-from moviepy.editor import VideoClip
+from moviepy.editor import VideoClip,CompositeVideoClip
 
 import mugen.utility as util
 import mugen.video.sizing as v_sizing
@@ -13,6 +13,7 @@ from mugen.video.effects import VideoEffectList
 from mugen.video.constants import LIST_3D
 from mugen.video.sizing import Dimensions
 
+import cv2
 
 class Segment(Filterable, Persistable, ABC):
     """
@@ -126,6 +127,23 @@ class Segment(Filterable, Persistable, ABC):
         """
         segment = self.copy()
         dimensions = Dimensions(*dimensions)
+        aspect_check = segment.aspect_ratio
+
+
+        def blur(image):
+            return cv2.blur(image.astype(float), (45, 45) , 0)
+        
+        if aspect_check < 1.77:
+          background1 = segment.crop(x1=0,width = (segment.w/2))
+          background2 = segment.crop(x1=(segment.w/2),width = (segment.w/2))
+
+          background1 = background1.resize(1.3)
+          background2 = background2.resize(1.3)
+
+
+          background1 = background1.set_position(("left",'center')).fl_image( blur )
+          background2 = background2.set_position(("right",'center')).fl_image( blur )
+          
 
         #if segment.aspect_ratio != dimensions.aspect_ratio:
             # Crop segment to match aspect ratio
@@ -144,6 +162,17 @@ class Segment(Filterable, Persistable, ABC):
           #print("widthchange: "+str(segment.size))        
         
         segment = segment.set_position("center")
+        
+        if aspect_check > 1.77:
+          background1 = segment.crop(y1=0,height = (segment.h/2))
+          background2 = segment.crop(y1=(segment.h/2),height = (segment.h/2)) 
+
+          background1 = background1.set_position(('center','top')).fl_image( blur )
+          background2 = background2.set_position(('center','bottom')).fl_image( blur )      
+        
+        
+        if aspect_check < 1.77 or aspect_check > 1.77:
+          segment = CompositeVideoClip([background1,background2,segment], size=(1980,1080))
 
         return segment
 
