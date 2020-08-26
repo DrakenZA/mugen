@@ -129,7 +129,7 @@ class Segment(Filterable, Persistable, ABC):
         dimensions = Dimensions(*dimensions)
         aspect_check = segment.aspect_ratio
 
-        segment_old = segment
+        #segment_old = segment
         
         def blur(image):
             #return cv2.GaussianBlur(image.astype(float),(99,99),0)
@@ -157,13 +157,15 @@ class Segment(Filterable, Persistable, ABC):
         segment = segment.set_position("center")
         
         if aspect_check < 1.77:
-          background1 = segment_old.crop(x1=0,width = (segment_old.w/2))
-          background2 = segment_old.crop(x1=(segment_old.w/2),width = (segment_old.w/2))
+          #background1 = segment_old.crop(x1=0,width = (segment_old.w/2))
+          #background2 = segment_old.crop(x1=(segment_old.w/2),width = (segment_old.w/2))
+          background1 = segment.crop(x1=0,width = (segment.w/2))
+          background2 = segment.crop(x1=(segment.w/2),width = (segment.w/2))
 
-          #background1 = background1.resize(1.3)
-          #background2 = background2.resize(1.3)
-          background1 = background1.resize(width=(dimensions.width-segment.w)/2)
-          background2 = background2.resize(width=((dimensions.width-segment.w)/2)+1)
+          background1 = background1.resize(2)
+          background2 = background2.resize(2)
+          #background1 = background1.resize(width=(dimensions.width-segment.w)/2)
+          #background2 = background2.resize(width=((dimensions.width-segment.w)/2)+1)
 
 
           background1 = background1.set_position(("left",'center')).fl_image( blur )
@@ -171,15 +173,19 @@ class Segment(Filterable, Persistable, ABC):
             
             
         
-        if aspect_check > 1.77:
-          background1 = segment_old.crop(y1=0,height = (segment_old.h/2))
-          background2 = segment_old.crop(y1=(segment_old.h/2),height = (segment_old.h/2)) 
+        if aspect_check > 1.8:
+          #background1 = segment_old.crop(y1=0,height = (segment_old.h/2))
+          #background2 = segment_old.crop(y1=(segment_old.h/2),height = (segment_old.h/2)) 
+
+          test = (dimensions.height-segment.h)/2
+          background1 = segment.crop(y1=0,height = ((dimensions.height-segment.h)/2))
+          background2 = segment.crop(y1=segment.h-test,height = test)
 
           background1 = background1.set_position(('center','top')).fl_image( blur )
           background2 = background2.set_position(('center','bottom')).fl_image( blur )      
         
         
-        if aspect_check < 1.77 or aspect_check > 1.77:
+        if aspect_check < 1.77 or aspect_check > 1.8:
           segment = CompositeVideoClip([background1,background2,segment], size=(dimensions.width,dimensions.height))
           segment.effects = self.effects
 
