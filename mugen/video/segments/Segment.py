@@ -156,14 +156,16 @@ class Segment(Filterable, Persistable, ABC):
         
         segment = segment.set_position("center")
         
-        if aspect_check < 1.77:
+        if aspect_check < 1.8:
           #background1 = segment_old.crop(x1=0,width = (segment_old.w/2))
           #background2 = segment_old.crop(x1=(segment_old.w/2),width = (segment_old.w/2))
+            
           background1 = segment.crop(x1=0,width = (segment.w/2))
           background2 = segment.crop(x1=(segment.w/2),width = (segment.w/2))
 
           #background1 = background1.resize(2)
           #background2 = background2.resize(2)
+          if aspect_check <= 1
           background1 = background1.resize(width=(dimensions.width-segment.w)/2)
           background2 = background2.resize(width=((dimensions.width-segment.w)/2)+1)
 
