@@ -187,7 +187,7 @@ class Segment(Filterable, Persistable, ABC):
           background2 = background2.set_position(('center','bottom')).fl_image( blur )      
         
         
-        if aspect_check < 1.77 or aspect_check > 1.8:
+        if aspect_check < 1.8 or aspect_check > 1.8:
           segment = CompositeVideoClip([background1,background2,segment], size=(dimensions.width,dimensions.height))
           segment.effects = self.effects
 
