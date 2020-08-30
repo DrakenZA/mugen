@@ -156,7 +156,7 @@ class Segment(Filterable, Persistable, ABC):
         
         segment = segment.set_position("center")
         
-        if aspect_check < 1.8:
+        if aspect_check < 1.77:
           #background1 = segment_old.crop(x1=0,width = (segment_old.w/2))
           #background2 = segment_old.crop(x1=(segment_old.w/2),width = (segment_old.w/2))
             
@@ -187,7 +187,7 @@ class Segment(Filterable, Persistable, ABC):
           background2 = background2.set_position(('center','bottom')).fl_image( blur )      
         
         
-        if aspect_check < 1.8 or aspect_check > 1.8:
+        if aspect_check < 1.77 or aspect_check > 1.8:
           segment = CompositeVideoClip([background1,background2,segment], size=(dimensions.width,dimensions.height))
           segment.effects = self.effects
 
