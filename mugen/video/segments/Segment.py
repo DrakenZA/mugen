@@ -191,8 +191,8 @@ class Segment(Filterable, Persistable, ABC):
           segment = CompositeVideoClip([background1,background2,segment], size=(dimensions.width,dimensions.height))
           segment.effects = self.effects
             
-        if segment.w != 1920 and segment.h != 1080:
-          segment = segment.resize((1920,1080))
+        if segment.w != dimensions.width and segment.h != dimensions.height:
+          segment = segment.resize((dimensions.width,dimensions.height))
 
         return segment
 
