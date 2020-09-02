@@ -190,6 +190,9 @@ class Segment(Filterable, Persistable, ABC):
         if aspect_check < 1.77 or aspect_check > 1.8:
           segment = CompositeVideoClip([background1,background2,segment], size=(dimensions.width,dimensions.height))
           segment.effects = self.effects
+            
+        if segment.w != 1920 and segment.h != 1080:
+          segment = segment.resize((1920,1080))
 
         return segment
 
