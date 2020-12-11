@@ -151,7 +151,7 @@ class Segment(Filterable, Persistable, ABC):
 
         ##########################################Below 1 AR##################################################
           if segment.aspect_ratio <= 1:
-            print("below 1")
+            #print("below 1")
             if segment.size[0] != replace_width:
               segment = segment.resize(width=replace_width)
             if segment.size[1] != replace_height:
@@ -163,7 +163,7 @@ class Segment(Filterable, Persistable, ABC):
             background2 = segment.crop(x1=(segment.w/2),width = (segment.w/2))
 
             if segment.aspect_ratio != 1:
-              print("Not 1:1")
+              #print("Not 1:1")
               background1 = background1.resize(width=(replace_width-segment.w)/2)
               background2 = background2.resize(width=((replace_width-segment.w)/2)+1)
 
@@ -175,7 +175,7 @@ class Segment(Filterable, Persistable, ABC):
 
         #########################################Above 1080 ratio###############################################
           if segment.aspect_ratio > replace_width/replace_height:
-            print("above 1.7")
+            #print("above 1.7")
             if segment.size[1] != replace_height:
               segment = segment.resize(height=replace_height)
             if segment.size[0] != replace_width:
@@ -197,7 +197,7 @@ class Segment(Filterable, Persistable, ABC):
         #############################################################################################
         if segment.w != replace_width and segment.h != replace_height:
           segment = segment.resize((replace_width,replace_height))
-          print("On Aspect, too big or small")
+          #print("On Aspect, too big or small")
 
 
         return segment
