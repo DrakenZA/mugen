@@ -127,7 +127,7 @@ class Segment(Filterable, Persistable, ABC):
         """
         segment = self.copy()
         dimensions = Dimensions(*dimensions)
-
+        
         
         def blur(image):
             #return cv2.GaussianBlur(image.astype(float),(99,99),0)
@@ -143,6 +143,9 @@ class Segment(Filterable, Persistable, ABC):
         #if segment.dimensions != dimensions:
             # Resize segment to reach final dimensions
             #segment = segment.resize(dimensions)
+        
+        replace_width = dimensions.width
+        replace_height = dimensions.height
             
         if segment.aspect_ratio != replace_height/replace_height:
 
