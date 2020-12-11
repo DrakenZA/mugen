@@ -147,7 +147,7 @@ class Segment(Filterable, Persistable, ABC):
         replace_width = dimensions.width
         replace_height = dimensions.height
             
-        if segment.aspect_ratio != replace_height/replace_height:
+        if segment.aspect_ratio != replace_width/replace_height:
 
         ##########################################Below 1 AR##################################################
           if segment.aspect_ratio <= 1:
