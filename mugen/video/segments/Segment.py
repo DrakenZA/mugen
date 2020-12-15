@@ -191,7 +191,7 @@ class Segment(Filterable, Persistable, ABC):
 
             background1 = background1.set_position(('center','top')).fl_image( blur )
             background2 = background2.set_position(('center','bottom')).fl_image( blur )
-            segment = CompositeVideoClip([background1,background2,segment], size=(1920,replace_height))
+            segment = CompositeVideoClip([background1,background2,segment], size=(replace_width,replace_height))
             segment.effects = self.effects
 
         #############################################################################################
