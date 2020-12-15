@@ -236,13 +236,16 @@ class MusicVideo(Persistable):
         numbers = [index for index, _ in enumerate(self.segments)]
         intervals = cuts.segment_durations
         locations = cuts.segment_locations
+        clipresolutions = [str(i.size[0]) + 'x' + str(i.size[1]) for i in self.segments]
+
 
         subtitle_track_segment_numbers = SubtitleTrack.create(numbers, 'segment_numbers', durations=intervals)
         subtitle_track_segment_locations = SubtitleTrack.create(locations, 'segment_locations', durations=intervals)
         subtitle_track_segment_durations = SubtitleTrack.create(intervals, 'segment_intervals', durations=intervals)
+        subtitle_track_segment_resolution = SubtitleTrack.create(clipresolutions, 'segment_resolutions', durations=intervals)
 
         subtitle_tracks = [subtitle_track_segment_numbers, subtitle_track_segment_locations,
-                           subtitle_track_segment_durations]
+                           subtitle_track_segment_durations,subtitle_track_segment_resolution]
         v_io.add_tracks_to_video(video_file, output_path, subtitle_tracks=subtitle_tracks)
 
     @requires_video_segments
