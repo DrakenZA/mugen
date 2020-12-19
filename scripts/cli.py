@@ -143,8 +143,10 @@ def create_music_video(args):
         music_video.aspect_ratio = video_aspect_ratio
     
     if VideoWriter.VIDEO_EXTENSION == '.mkv':
+        print('Adding subtitles because mkv supports')
         music_video.write_to_video_file(music_video_output_path)
     else:
+        print('Mp4 doesnt support multiple subtitle tracks')
         music_video.write_to_video_file(music_video_output_path,add_auxiliary_tracks=False)
         
     music_video.save(music_video_pickle_path)
