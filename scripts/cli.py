@@ -137,8 +137,12 @@ def create_music_video(args):
         music_video.dimensions = video_dimensions
     if video_aspect_ratio:
         music_video.aspect_ratio = video_aspect_ratio
-
-    music_video.write_to_video_file(music_video_output_path)
+    
+    if VideoWriter.VIDEO_EXTENSION == '.mkv':
+        music_video.write_to_video_file(music_video_output_path)
+    else:
+        music_video.write_to_video_file(music_video_output_path,add_auxiliary_tracks=False)
+        
     music_video.save(music_video_pickle_path)
 
     # Save the individual segments if asked to do so
