@@ -81,6 +81,10 @@ def create_music_video(args):
     audio_codec = args.audio_codec
     audio_bitrate = args.audio_bitrate
     save_segments = args.save_segments
+    video_ext = args.video_ext
+    
+    VideoWriter.VIDEO_EXTENSION = video_ext
+    
 
     video_source_files = files_from_sources(video_sources)
     video_sources = VideoSourceList(video_source_files, weights=video_source_weights)
@@ -399,6 +403,10 @@ def parse_args(args):
                              f'Will create the directory if non-existent.')
 
     # Event Common Parameters
+    #mine
+    event_parser.add_argument('-ve', '--video_ext', dest='video_ext', type=string,
+                              help='Manually set the video EXTENSION.')
+    
     event_parser.add_argument('-d', '--duration', dest='duration', type=float,
                               help='Manually set the duration of the music video.')
     event_parser.add_argument('-el', '--event-locations', dest='event_locations', type=float, nargs='+',
