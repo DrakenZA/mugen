@@ -43,11 +43,11 @@ class VideoWriter:
     ffmpeg_params: list
 
     AUDIO_BITRATE = 320
-    AUDIO_CODEC = 'aac'
+    AUDIO_CODEC = 'mp3'
     VIDEO_PRESET = 'medium'
     VIDEO_CODEC = 'libx264'
     VIDEO_CRF = 18
-    VIDEO_EXTENSION = '.mp4'
+    VIDEO_EXTENSION = '.mkv'
 
     def __init__(self, preset: str = VIDEO_PRESET, codec: str = VIDEO_CODEC, crf: int = VIDEO_CRF,
                  audio_codec: str = AUDIO_CODEC, audio_bitrate: int = AUDIO_BITRATE,
