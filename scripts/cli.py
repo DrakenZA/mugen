@@ -404,7 +404,7 @@ def parse_args(args):
 
     # Event Common Parameters
     #mine
-    event_parser.add_argument('-ve', '--video_ext', dest='video_ext',
+    event_parser.add_argument('-ve', '--video-ext', dest='video_ext',
                               help='Manually set the video EXTENSION.')
     
     event_parser.add_argument('-d', '--duration', dest='duration', type=float,
