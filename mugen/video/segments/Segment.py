@@ -194,7 +194,26 @@ class Segment(Filterable, Persistable, ABC):
             segment = CompositeVideoClip([background1,background2,segment], size=(replace_width,replace_height))
             segment.effects = self.effects
 
+       ######################################other#######################################################
+          if segment.aspect_ratio > 1 and segment.aspect_ratio < round(replace_width/replace_height,2):
+            #print('midway between')
+            if segment.size[0] != replace_width:
+              segment = segment.resize(width=replace_width)
+            if segment.size[1] != replace_height:
+              segment = segment.resize(height=replace_height)
+
+
+            segment = segment.set_position("center")
+            background1 = segment.crop(x1=0,width = (segment.w/2))
+            background2 = segment.crop(x1=(segment.w/2),width = (segment.w/2))
+
+            background1 = background1.set_position(("left",'center')).fl_image( blur )
+            background2 = background2.set_position(("right",'center')).fl_image( blur )
+            segment = CompositeVideoClip([background1,background2,segment], size=(replace_width,replace_height))
+            segment.effects = self.effects
+            
         #############################################################################################
+        
         if segment.w != replace_width and segment.h != replace_height:
           segment = segment.resize((replace_width,replace_height))
           #print("On Aspect, too big or small")
