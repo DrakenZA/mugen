@@ -174,7 +174,7 @@ class Segment(Filterable, Persistable, ABC):
             segment.effects = self.effects
 
         #########################################Above 1080 ratio###############################################
-          if segment.aspect_ratio > round(replace_width/replace_height,2):
+          elif segment.aspect_ratio > round(replace_width/replace_height,2):
             #print("above 1.7")
             if segment.size[1] != replace_height:
               segment = segment.resize(height=replace_height)
@@ -195,7 +195,7 @@ class Segment(Filterable, Persistable, ABC):
             segment.effects = self.effects
 
        ######################################other#######################################################
-          if segment.aspect_ratio > 1 and segment.aspect_ratio < round(replace_width/replace_height,2):
+          elif segment.aspect_ratio > 1 and segment.aspect_ratio < round(replace_width/replace_height,2):
             #print('midway between')
             if segment.size[0] != replace_width:
               segment = segment.resize(width=replace_width)
