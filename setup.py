@@ -37,7 +37,8 @@ setup(
         'decorator==4.0.11',
         'dill==0.2.7.1',
         'requests==2.21.0',
-        'imageio==2.4.1'
+        'imageio==2.4.1',
+        'numba==0.48'
     ],
     extras_require={
         'full': optional_requirements,
